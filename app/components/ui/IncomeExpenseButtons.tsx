@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function IncomeExpenseButtons() {
   return (
-    <div className="flex gap-3">
+    <div className="flex gap-2">
       <Link
         href="/new?type=income"
         className="flex flex-1 flex-col items-center justify-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 py-3 text-base font-semibold text-emerald-700"

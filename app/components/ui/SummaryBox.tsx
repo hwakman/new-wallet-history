@@ -18,8 +18,8 @@ export default function SummaryBox({
         <p className="text-3xl font-semibold text-neutral-900">{formatAmount(balance)}</p>
       </div>
       <div className="flex flex-col items-end gap-1 border-l border-black/10 pl-4">
-        <p className="text-sm font-semibold text-green-600">+{formatAmount(income)}</p>
-        <p className="text-sm font-semibold text-red-600">-{formatAmount(expense)}</p>
+        <p className="text-md font-semibold text-green-600">+{formatAmount(income)}</p>
+        <p className="text-md font-semibold text-red-600">-{formatAmount(expense)}</p>
       </div>
     </div>
   );

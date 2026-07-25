@@ -9,9 +9,9 @@ export default async function StatsPage() {
 
   return (
     <div className="flex flex-1 flex-col gap-6 pt-6">
-      <SummaryBox {...totals} />
       <ExpenseReportDownload>
         <ExpenseStats data={expenseByCategory} />
+        <SummaryBox {...totals} />
         <ExpenseSummaryTable data={expenseByCategory} />
       </ExpenseReportDownload>
     </div>

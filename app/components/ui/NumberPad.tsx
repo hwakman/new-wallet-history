@@ -60,7 +60,7 @@ export default function NumberPad({ categories }: { categories: Categories }) {
 
   return (
     <div className="flex flex-col gap-4">
-      <p className="text-right text-4xl font-semibold text-neutral-900">{formatDisplay(value)}</p>
+      <p className="text-right text-4xl font-semibold text-neutral-900 py-2">{formatDisplay(value)}</p>
       <div className="grid grid-cols-3 gap-2">
         {KEYS.map((key) => (
           <button

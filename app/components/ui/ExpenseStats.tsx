@@ -18,7 +18,7 @@ export default function ExpenseStats({ data }: { data: CategoryTotal[] }) {
       series: [
         {
           type: "pie",
-          radius: "85%",
+          radius: "95%",
           center: ["50%", "50%"],
           data: data.map((s) => ({ name: s.category, value: s.amount })),
           label: {
