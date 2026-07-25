@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import ExpenseStats from "./ExpenseStats";
 import ExpenseSummaryTable from "./ExpenseSummaryTable";
 import { resetTransactions } from "@/app/actions";
+import { captureAsImage } from "./captureImage";
 import type { CategoryTotal } from "@/lib/data";
 
 export default function CompactResetButton({ data }: { data: CategoryTotal[] }) {
@@ -18,16 +19,13 @@ export default function CompactResetButton({ data }: { data: CategoryTotal[] }) 
     setBusy(true);
     setError("");
     try {
-      // Download first — the reset only runs once the image is saved.
-      const html2canvas = (await import("html2canvas-pro")).default;
-      const canvas = await html2canvas(captureRef.current, {
-        backgroundColor: "#ffffff",
-        scale: 2,
-      });
-      const link = document.createElement("a");
-      link.download = "expense-report.png";
-      link.href = canvas.toDataURL("image/png");
-      link.click();
+      // Save first — the reset only runs once the image is actually saved.
+      const result = await captureAsImage(captureRef.current, "expense-report.png");
+      if (result === "cancelled") {
+        setError("Save was cancelled. Nothing was reset.");
+        setBusy(false);
+        return;
+      }
 
       await resetTransactions();
 

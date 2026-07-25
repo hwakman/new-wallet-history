@@ -1,21 +1,21 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { captureAsImage } from "./captureImage";
 
 export default function ExpenseReportDownload({ children }: { children: React.ReactNode }) {
   const captureRef = useRef<HTMLDivElement>(null);
   const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
 
   async function handleDownload() {
     if (!captureRef.current) return;
     setBusy(true);
+    setError("");
     try {
-      const html2canvas = (await import("html2canvas-pro")).default;
-      const canvas = await html2canvas(captureRef.current, { backgroundColor: "#ffffff", scale: 2 });
-      const link = document.createElement("a");
-      link.download = "expense-report.png";
-      link.href = canvas.toDataURL("image/png");
-      link.click();
+      await captureAsImage(captureRef.current, "expense-report.png");
+    } catch {
+      setError("Could not save the image. Please try again.");
     } finally {
       setBusy(false);
     }
@@ -26,6 +26,7 @@ export default function ExpenseReportDownload({ children }: { children: React.Re
       <div ref={captureRef} className="flex flex-col gap-6">
         {children}
       </div>
+      {error && <p className="text-sm text-red-600">{error}</p>}
       <button
         type="button"
         onClick={handleDownload}
